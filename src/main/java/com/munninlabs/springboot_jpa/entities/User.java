@@ -1,12 +1,12 @@
 package com.munninlabs.springboot_jpa.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -22,6 +22,10 @@ public class User implements Serializable {
     private String phone;
     private String password;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "client")
+    private List<Order> orders = new ArrayList<>();
+
     public User() {
     }
 
@@ -36,8 +40,6 @@ public class User implements Serializable {
     public Long getId() {
         return id;
     }
-
-
 
     public void setId(Long id) {
         this.id = id;
@@ -73,6 +75,10 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
     }
 
     @Override
