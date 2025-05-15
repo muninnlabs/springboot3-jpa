@@ -1,8 +1,10 @@
 package com.munninlabs.springboot_jpa.config;
 
+import com.munninlabs.springboot_jpa.entities.Category;
 import com.munninlabs.springboot_jpa.entities.Order;
 import com.munninlabs.springboot_jpa.entities.User;
 import com.munninlabs.springboot_jpa.entities.enums.OrderStatus;
+import com.munninlabs.springboot_jpa.repositories.CategoryRepository;
 import com.munninlabs.springboot_jpa.repositories.OrderRepository;
 import com.munninlabs.springboot_jpa.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +25,17 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @Override
     public void run(String... args) throws Exception {
+        Category cat1 = new Category(null, "Electronics");
+        Category cat2 = new Category(null, "Books");
+        Category cat3 = new Category(null, "Computers");
+
+        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+
         User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
         User u2 = new User(null, "Alex Green", "alex@gmail.com", "977777777", "123456");
 
