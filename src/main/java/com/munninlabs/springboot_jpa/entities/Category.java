@@ -1,27 +1,30 @@
 package com.munninlabs.springboot_jpa.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
+import java.io.Serial;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_category")
 public class Category implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+    @Serial
+    private static final Long serialVersionUID = 1L;
+    
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
-    public Category() {
-    }
+    private final Set<Product> products = new HashSet<>();
+
+    public Category() {}
 
     public Category(Long id, String name) {
+        super();
         this.id = id;
         this.name = name;
     }
@@ -42,15 +45,23 @@ public class Category implements Serializable {
         this.name = name;
     }
 
+    public Set<Product> getProducts() {
+        return products;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Category category = (Category) o;
-        return Objects.equals(id, category.id);
+        com.munninlabs.springboot_jpa.entities.Category category = (com.munninlabs.springboot_jpa.entities.Category) o;
+        return id == category.id;
     }
 
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
+
+
+
 }

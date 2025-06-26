@@ -72,7 +72,7 @@ public class Order implements Serializable {
         if (orderStatus != null) {
             this.orderStatus = orderStatus.getCode();
         }else{
-            throw new IllegalArgumentException("Order status cannot be null");
+            throw new IllegalArgumentException("Invalid OrderStatus code");
         }
 
 
